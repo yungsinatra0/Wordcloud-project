@@ -1,0 +1,20 @@
+#!/bin/bash
+
+dir=$(pwd)
+
+files=$dir/messages/inbox/*
+
+mkdir jsonfiles
+
+cd $(pwd)/messages/inbox
+
+for file in $files
+do
+	name=$(basename $file)
+	newname=$(echo $name | cut -f1 -d "_" | awk '{print tolower($0)}')
+	cd $name
+	cp message_1.json $dir/jsonfiles/$newname.json
+	cd ..
+done
+
+mkdir $dir/wordclouds
